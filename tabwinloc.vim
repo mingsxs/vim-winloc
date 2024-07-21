@@ -16,7 +16,7 @@ let g:winloc_trace_log = []
 
 " enable debug trace info
 function! s:LogTrace(msg)
-    if get(g:, 'winloc_trace_enable', 0)
+    if get(g:, 'winloc_trace_enabled', 0)
         call add(g:winloc_trace_log, a:msg)
     endif
 endfunction
@@ -44,7 +44,7 @@ endfunction
 
 " add new window ID
 "function! winloc#winloc#OnWinCreate() abort
-"    if get(g:, 'winloc_enable', 1)
+"    if get(g:, 'winloc_enabled', 1)
 "        call add(s:windows, win_getid())
 "    endif
 "endfunction
@@ -52,7 +52,7 @@ endfunction
 " update winloc fifo after an opened window is closed.
 function! winloc#winloc#OnWinClose() abort
     " winloc needs to be enabled
-    if get(g:, 'winloc_enable', 1)
+    if get(g:, 'winloc_enabled', 1)
         " WinClosed autocmd will store the closed Win-ID in <amatch> & <afile>
         " and also the closed window info is still retrievable
         let closed_win = str2nr(expand('<amatch>'))
@@ -215,7 +215,7 @@ endfunction
 " the default delay is 25 ms which can be specified with g:winloc_update_delay.
 function! winloc#winloc#OnWinEnter() abort
     " winloc needs to be enabled and shuold be doing winloc jumping
-    if get(g:, 'winloc_enable', 1) && !s:winloc_switch
+    if get(g:, 'winloc_enabled', 1) && !s:winloc_switch
         " need to redirect window
         if s:winloc_redirect
             let s:winloc_redirect = 0
@@ -252,7 +252,7 @@ endfunction
 
 " jump across winloc fifo
 function! winloc#winloc#JumpWinloc(direction) abort
-    if get(g:, 'winloc_enable', 1)
+    if get(g:, 'winloc_enabled', 1)
         call s:LogTrace("winloc jump ".a:direction)
         " turn on switch to block incoming WinEnter event
         let s:winloc_switch = 1
