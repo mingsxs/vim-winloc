@@ -34,7 +34,7 @@ function! s:GetAllWinIDs()
     return winids
 endfunction
 
-function! winloc#winloc#DebugShow()
+function! tabwinloc#DebugShow()
     echomsg "window ids all:".join(s:GetAllWinIDs(), ', ')
     echomsg "winloc fifo length: ".get(g:, 'winloc_fifo_len', 'default-16')
     echomsg "winloc fifo: ".join(s:winloc_fifo, ', ')
@@ -43,14 +43,14 @@ function! winloc#winloc#DebugShow()
 endfunction
 
 " add new window ID
-"function! winloc#winloc#OnWinCreate() abort
+"function! tabwinloc#OnWinCreate() abort
 "    if get(g:, 'winloc_enabled', 1)
 "        call add(s:windows, win_getid())
 "    endif
 "endfunction
 
 " update winloc fifo after an opened window is closed.
-function! winloc#winloc#OnWinClose() abort
+function! tabwinloc#OnWinClose() abort
     " winloc needs to be enabled
     if get(g:, 'winloc_enabled', 1)
         " WinClosed autocmd will store the closed Win-ID in <amatch> & <afile>
@@ -213,7 +213,7 @@ endfunction
 
 " handler for updating winloc fifo on event #WinEnter with delay timer.
 " the default delay is 25 ms which can be specified with g:winloc_update_delay.
-function! winloc#winloc#OnWinEnter() abort
+function! tabwinloc#OnWinEnter() abort
     " winloc needs to be enabled and shuold be doing winloc jumping
     if get(g:, 'winloc_enabled', 1) && !s:winloc_switch
         " need to redirect window
@@ -251,7 +251,7 @@ function! winloc#winloc#OnWinEnter() abort
 endfunction
 
 " jump across winloc fifo
-function! winloc#winloc#JumpWinloc(direction) abort
+function! tabwinloc#JumpWinloc(direction) abort
     if get(g:, 'winloc_enabled', 1)
         call s:LogTrace("winloc jump ".a:direction)
         " turn on switch to block incoming WinEnter event
