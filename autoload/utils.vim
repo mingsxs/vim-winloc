@@ -12,11 +12,8 @@
 " relativenumber toggle function.
 "-----------------------------------------------------------------------
 function! utils#NumberToggle()
-    if &relativenumber
-        set norelativenumber nonumber
-    else
-        set relativenumber  number
-    endif
+    set relativenumber!
+    set number!
 endfunction
 
 "-----------------------------------------------------------------------
