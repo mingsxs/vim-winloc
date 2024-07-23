@@ -82,11 +82,15 @@ function! utils#OnPressEsc() abort
                 return
             " quickfix window
             elseif win_gettype(winnr) == "quickfix"
-                cclose
+                exec winnr .. "quit"
                 return
             " loclist window
             elseif win_gettype(winnr) == "loclist"
-                lclose
+                exec winnr .. "quit"
+                return
+            " neotree window
+            elseif getwinvar(winnr, "&ft") == 'neo-tre'
+                exec winnr .. "quit"
                 return
             endif
         endfor
