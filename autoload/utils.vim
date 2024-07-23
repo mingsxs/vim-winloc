@@ -85,7 +85,7 @@ function! utils#OnPressEsc() abort
                 exec winnr .. "quit"
                 return
             " neotree window
-            elseif getwinvar(winnr, "&ft") == 'neo-tre'
+            elseif getwinvar(winnr, "&ft") == 'neo-tree'
                 exec winnr .. "quit"
                 return
             " [untitled] buffer
