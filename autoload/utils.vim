@@ -72,12 +72,8 @@ function! utils#OnPressEsc() abort
     " only handle multiple window cases
     if l:winnrs > 1
         for winnr in range(1, l:winnrs)
-            " [untitled] buffer
-            if empty(bufname(winbufnr(winnr)))
-                exec winnr .. "quit"
-                return
             " vim help doc
-            elseif getwinvar(winnr, "&ft") == "help"
+            if getwinvar(winnr, "&ft") == "help"
                 exec winnr .. "quit"
                 return
             " quickfix window
@@ -90,6 +86,10 @@ function! utils#OnPressEsc() abort
                 return
             " neotree window
             elseif getwinvar(winnr, "&ft") == 'neo-tre'
+                exec winnr .. "quit"
+                return
+            " [untitled] buffer
+            elseif empty(bufname(winbufnr(winnr)))
                 exec winnr .. "quit"
                 return
             endif
